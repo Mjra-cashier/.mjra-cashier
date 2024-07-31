@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo+Play:wght@1000&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كوفي الفهد</title>
+    
+    
+    
+    <style>
+    
+    
+
+    
+    
+    
+        body {
+            
+
+            
+            
+            font-family: 'Cairo Play', sans-serif;
+            background-color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-gap: 10px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .table, .pool {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+
+        .table:hover, .pool:hover {
+            background-color: #0056b3;
+        }
+
+        .details-container, .menu-container, .reports-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            color: #fff;
+            background-color: #444;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #details, #menu, #reports {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+
+
+font-family: 'Cairo Play', sans-serif;
+
+
+
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #back, #backFromMenu, #backFromReports {
+            background-color: #dc3545;
+        }
+
+        #back:hover, #backFromMenu:hover, #backFromReports:hover {
+            background-color: #c82333;
+        }
+
+        .table.has-order, .pool.has-order {
+            background-color: #28a745;
+        }
+
+        .total {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #fff;
+            color: #000;
+            border-radius: 5px;
+            padding: 2px 5px;
+            font-size: 0.8em;
+        }
+
+        .menu-item, .order-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-item img {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-gap: 10px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        
+        .edit-menu-item {
+            background-color: #ffc107;
+        }
+        
+        .edit-menu-item:hover {
+            background-color: #e0a800;
+        }
+        
+        .delete-menu-item {
+            background-color: #dc3545;
+        }
+        
+        .delete-menu-item:hover {
+            background-color: #c82333;
+        }
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section h3 {
+            margin-bottom: 10px;
+        }
+        
+        
+        
+        #reportsButton {
+    background-color: #007bff; /* لون أزرق للزر */
+    color: #fff; /* لون النص أبيض */
+    border: none; /* إزالة الحدود */
+    padding: 10px 20px; /* إضافة padding للزر */
+    cursor: pointer; /* تغيير شكل المؤشر عند المرور فوق الزر */
+    border-radius: 5px; /* تدوير الزوايا */
+    transition: background-color 0.3s; /* تأثير الانتقال عند تغيير اللون */
+    position: fixed; /* تثبيت الزر في موضع معين */
+    bottom: 20px; /* المسافة من أسفل الصفحة */
+    left: 50%; /* موضع الزر في منتصف الصفحة أفقياً */
+    transform: translateX(-50%); /* لتحريك الزر إلى اليسار بمقدار نصف عرضه */
+}
+
+#reportsButton:hover {
+    background-color: #0056b3; /* لون أزرق أغمق عند التمرير فوق الزر */
+}
+
+
+    
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+        
+        
+        
+        
+        
+    </style>
+</head>
+<body>
+    
+    
+
+
+ 
+    
+     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('loggedIn') !== 'true') {
+                window.location.href = 'index.html';
+            }
+
+            // الكود المتبقي لصفحة الكوفي هنا
+        });
+
+    </script>
+    
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const moveOrdersButton = document.getElementById('moveOrders');
+    const tableSelect = document.getElementById('tableSelect');
+    const elements = document.querySelectorAll('.table, .pool');
+    let currentId = null; // سيتم تعيين هذه القيمة بشكل صحيح لاحقًا
+
+    // تحميل الطاولات والبلياردو في القائمة المنسدلة
+    const loadTableOptions = () => {
+        tableSelect.innerHTML = ''; // تنظيف الخيارات الحالية
+
+        elements.forEach(element => {
+            const option = document.createElement('option');
+            option.value = element.id;
+            option.textContent = element.textContent;
+            tableSelect.appendChild(option);
+        });
+
+        // تحديد القيمة الحالية في القائمة المنسدلة (إذا لزم الأمر)
+        if (currentId) {
+            tableSelect.value = currentId;
+        }
+    };
+
+    // حدث النقر على زر نقل الطلبات
+    moveOrdersButton.addEventListener('click', () => {
+        const destinationId = tableSelect.value;
+
+        if (destinationId && destinationId !== currentId) {
+            // الحصول على الطلبات من الطاولة الحالية
+            const orders = JSON.parse(localStorage.getItem(currentId) || '[]');
+
+            // الحصول على الطلبات من الطاولة الوجهة
+            const destinationOrders = JSON.parse(localStorage.getItem(destinationId) || '[]');
+
+            // نقل الطلبات من الطاولة الحالية إلى الطاولة الوجهة
+            const updatedDestinationOrders = destinationOrders.concat(orders);
+            localStorage.setItem(destinationId, JSON.stringify(updatedDestinationOrders));
+
+            // مسح الطلبات من الطاولة الحالية
+            localStorage.removeItem(currentId);
+
+            // تحديث الواجهة
+            loadTableOptions();
+            alert('تم نقل الطلبات بنجاح.');
+        } else {
+            alert('يرجى اختيار طاولة الوجهة مختلفة عن الطاولة الحالية.');
+        }
+    });
+
+    // استدعاء الدالة لتحميل الخيارات عند تحميل الصفحة
+    loadTableOptions();
+
+    // تعيين الطاولة الحالية عند النقر عليها
+    elements.forEach(element => {
+        element.addEventListener('click', () => {
+            currentId = element.id;
+       
+
+
+
+
+
+
+
+
+        });
+    });
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <div class="container" id="mainPage">
+        <div class="table" id="table1">1<span class="total" id="total-table1"></span></div>
+        <div class="table" id="table2">2<span class="total" id="total-table2"></span></div>
+        <div class="table" id="table3">3<span class="total" id="total-table3"></span></div>
+        <div class="table" id="table4">4<span class="total" id="total-table4"></span></div>
+        <div class="table" id="table5">5<span class="total" id="total-table5"></span></div>
+        <div class="table" id="table6">6<span class="total" id="total-table6"></span></div>
+        <div class="table" id="table7">7<span class="total" id="total-table7"></span></div>
+        <div class="table" id="table8">8<span class="total" id="total-table8"></span></div>
+        <div class="table" id="table9">9<span class="total" id="total-table9"></span></div>
+        <div class="table" id="table10">10<span class="total" id="total-table10"></span></div>
+        <div class="table" id="table11">11<span class="total" id="total-table11"></span></div>
+        <div class="table" id="table12">12<span class="total" id="total-table12"></span></div>
+        <div class="table" id="table13">13<span class="total" id="total-table13"></span></div>
+        <div class="table" id="table14">14<span class="total" id="total-table14"></span></div>
+        <div class="pool" id="pool1">بليارد<span class="total" id="total-pool1"></span></div>
+        <div class="pool" id="pool2">1بلي<span class="total" id="total-pool2"></span></div>
+        <div class="pool" id="pool3">2بلي<span class="total" id="total-pool3"></span></div>
+        <div class="pool" id="pool4">3بلي<span class="total" id="total-pool4"></span></div>
+        
+        
+        
+        
+        
+    </div>
+
+    <div class="details-container" id="detailsPage" style="display:none;">
+        <h2>تفاصيل الطلبات</h2>
+        <div id="details">
+‎            <!-- تفاصيل الطلبات سيتم إدراجها هنا -->
+        </div>
+        <h3>المجموع: <span id="totalAmount">0</span> دينار عراقي</h3>
+        <button id="addOrder">إضافة طلب</button>
+        <button id="clearOrders">تم الدفع</button>
+
+
+
+
+
+
+
+
+
+
+
+<div id="tableSelectContainer">
+    <select id="tableSelect" class="styled-select">
+        <!-- سيتم ملء القائمة بالطاولات بواسطة JavaScript -->
+    </select>
+    <button id="moveOrders">نقل الطلبات</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <button id="back">رجوع</button>
+    </div>
+
+    <div class="menu-container" id="menuPage" style="display:none;">
+        <h2>المنيو</h2>
+        <div id="menu">
+‎            <!-- قائمة المنتجات ستظهر هنا -->
+        </div>
+        <h3>إضافة منتج جديد</h3>
+        <input type="text" id="itemName" placeholder="اسم المنتج">
+        <input type="number" id="itemPrice" placeholder="سعر المنتج">
+     
+        
+        
+        
+        
+     <input type="text" id="itemImage" placeholder="رابط الصورة">
+       
+        
+        
+        
+        
+        
+        
+        <select id="itemCategory">
+            <option value="">اختر القسم</option>
+        </select>
+        <button id="addItem">إضافة منتج</button>
+        <h3>إضافة قسم جديد</h3>
+        <input type="text" id="categoryName" placeholder="اسم القسم">
+        <button id="addCategory">إضافة قسم</button>
+        <button id="backFromMenu">رجوع</button>
+    </div>
+
+    <div class="reports-container" id="reportsPage" style="display:none;">
+        <h2>التقارير</h2>
+        <div id="reports">
+            <p>الدخل اليومي: <span id="dailyIncome">0</span> دينار عراقي</p>
+            <p>عدد الطلبات اليومية: <span id="dailyOrders">0</span></p>
+            <p>الدخل الشهري: <span id="monthlyIncome">0</span> دينار عراقي</p>
+        </div>
+        <button id="backFromReports">رجوع</button>
+    </div>
+
+    <script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('.table, .pool');
+    const mainPage = document.getElementById('mainPage');
+    const detailsPage = document.getElementById('detailsPage');
+    const menuPage = document.getElementById('menuPage');
+    const reportsPage = document.getElementById('reportsPage');
+    const detailsContainer = document.getElementById('details');
+    const menu = document.getElementById('menu');
+    const backButton = document.getElementById('back');
+    const clearOrdersButton = document.getElementById('clearOrders');
+    const backFromMenuButton = document.getElementById('backFromMenu');
+    const backFromReportsButton = document.getElementById('backFromReports');
+    const totalAmountSpan = document.getElementById('totalAmount');
+    const dailyIncomeSpan = document.getElementById('dailyIncome');
+    const dailyOrdersSpan = document.getElementById('dailyOrders');
+    const monthlyIncomeSpan = document.getElementById('monthlyIncome');
+    const addItemButton = document.getElementById('addItem');
+    const addCategoryButton = document.getElementById('addCategory');
+    const itemNameInput = document.getElementById('itemName');
+    const itemPriceInput = document.getElementById('itemPrice');
+    const itemImageInput = document.getElementById('itemImage');
+    const itemCategoryInput = document.getElementById('itemCategory');
+    const categoryNameInput = document.getElementById('categoryName');
+    let currentId = null;
+
+    const loadOrders = () => {
+        elements.forEach(element => {
+            const orders = JSON.parse(localStorage.getItem(element.id) || '[]');
+            if (orders.length > 0) {
+                element.classList.add('has-order');
+            } else {
+                element.classList.remove('has-order');
+            }
+            updateTotal(element.id);
+        });
+    };
+
+    const loadMenu = () => {
+        menu.innerHTML = '';
+        const categories = JSON.parse(localStorage.getItem('categories') || '[]');
+        categories.forEach(category => {
+            const section = document.createElement('div');
+            section.className = 'section';
+            section.innerHTML = `<h3>${category.name}</h3>`;
+            category.items.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                const img = document.createElement('img');
+                img.src = item.image;  // استخدام الرابط للعرض
+                menuItem.appendChild(img);
+                menuItem.innerHTML += `<span>${item.name}</span><span>${item.price} دينار</span>`;
+                const editButton = document.createElement('button');
+                editButton.className = 'edit-menu-item';
+                editButton.textContent = 'تعديل';
+                editButton.addEventListener('click', () => editMenuItem(category.name, item));
+                menuItem.appendChild(editButton);
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'delete-menu-item';
+                deleteButton.textContent = 'حذف';
+                deleteButton.addEventListener('click', () => deleteMenuItem(category.name, item));
+                menuItem.appendChild(deleteButton);
+                menuItem.addEventListener('click', () => addItemToOrder(item.name, item.price));
+                section.appendChild(menuItem);
+            });
+            menu.appendChild(section);
+        });
+
+        itemCategoryInput.innerHTML = '<option value="">اختر القسم</option>';
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.name;
+            option.textContent = category.name;
+            itemCategoryInput.appendChild(option);
+        });
+    };
+
+    const updateTotal = (id) => {
+        const orders = JSON.parse(localStorage.getItem(id) || '[]');
+        const total = orders.reduce((sum, order) => sum + (order.price * order.count), 0);
+        const totalElement = document.getElementById(`total-${id}`);
+        if (totalElement) {
+            totalElement.textContent = total > 0 ? `${total} دينار` : '';
+        }
+    };
+
+    elements.forEach(element => {
+        element.addEventListener('click', () => {
+            currentId = element.id;
+            mainPage.style.display = 'none';
+            detailsPage.style.display = 'block';
+            loadDetails();
+        });
+    });
+
+    const loadDetails = () => {
+        detailsContainer.innerHTML = '';
+        const orders = JSON.parse(localStorage.getItem(currentId) || '[]');
+        let totalAmount = 0;
+        orders.forEach((order, index) => {
+            const orderItem = document.createElement('div');
+            orderItem.className = 'order-item';
+            orderItem.innerHTML = `<span>${order.name} x${order.count}</span><span>${order.price * order.count} دينار</span><button data-index="${index}">حذف</button>`;
+            detailsContainer.appendChild(orderItem);
+            totalAmount += order.price * order.count;
+        });
+        totalAmountSpan.textContent = totalAmount;
+
+        const deleteButtons = detailsContainer.querySelectorAll('button');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const index = button.getAttribute('data-index');
+                orders.splice(index, 1);
+                localStorage.setItem(currentId, JSON.stringify(orders));
+                loadDetails();
+                loadOrders();
+            });
+        });
+    };
+
+    document.getElementById('addOrder').addEventListener('click', () => {
+        detailsPage.style.display = 'none';
+        menuPage.style.display = 'block';
+    });
+
+    clearOrdersButton.addEventListener('click', () => {
+        localStorage.removeItem(currentId);
+        loadDetails();
+        loadOrders();
+    });
+
+    backButton.addEventListener('click', () => {
+        detailsPage.style.display = 'none';
+        mainPage.style.display = 'grid';
+        loadOrders();
+    });
+
+    backFromMenuButton.addEventListener('click', () => {
+        menuPage.style.display = 'none';
+        detailsPage.style.display = 'block';
+    });
+
+    backFromReportsButton.addEventListener('click', () => {
+        reportsPage.style.display = 'none';
+        mainPage.style.display = 'grid';
+    });
+
+    addItemButton.addEventListener('click', () => {
+        const name = itemNameInput.value;
+        const price = parseFloat(itemPriceInput.value);
+        const image = itemImageInput.value;  // استخدام رابط الصورة هنا
+        const category = itemCategoryInput.value;
+        if (name && price && image && category) {
+            const categories = JSON.parse(localStorage.getItem('categories') || '[]');
+            const categoryIndex = categories.findIndex(c => c.name === category);
+            if (categoryIndex !== -1) {
+                categories[categoryIndex].items.push({ name, price, image });
+                localStorage.setItem('categories', JSON.stringify(categories));
+                loadMenu();
+            }
+        }
+    });
+
+    addCategoryButton.addEventListener('click', () => {
+        const name = categoryNameInput.value;
+        if (name) {
+            const categories = JSON.parse(localStorage.getItem('categories') || '[]');
+            categories.push({ name, items: [] });
+            localStorage.setItem('categories', JSON.stringify(categories));
+            loadMenu();
+        }
+    });
+
+    const addItemToOrder = (name, price) => {
+        const orders = JSON.parse(localStorage.getItem(currentId) || '[]');
+        const orderIndex = orders.findIndex(order => order.name === name);
+        if (orderIndex !== -1) {
+            orders[orderIndex].count += 1;
+        } else {
+            orders.push({ name, price, count: 1 });
+        }
+        localStorage.setItem(currentId, JSON.stringify(orders));
+        loadDetails();
+        loadOrders();
+        menuPage.style.display = 'none';
+        detailsPage.style.display = 'block';
+    };
+
+    const editMenuItem = (categoryName, item) => {
+        const newName = prompt('تعديل اسم المنتج', item.name);
+        const newPrice = parseFloat(prompt('تعديل سعر المنتج', item.price));
+        if (newName && newPrice) {
+            const categories = JSON.parse(localStorage.getItem('categories') || '[]');
+            const categoryIndex = categories.findIndex(c => c.name === categoryName);
+            const itemIndex = categories[categoryIndex].items.findIndex(i => i.name === item.name);
+            categories[categoryIndex].items[itemIndex] = { ...item, name: newName, price: newPrice };
+            localStorage.setItem('categories', JSON.stringify(categories));
+            loadMenu();
+        }
+    };
+
+    const deleteMenuItem = (categoryName, item) => {
+    const categories = JSON.parse(localStorage.getItem('categories') || '[]');
+    const categoryIndex = categories.findIndex(c => c.name === categoryName);
+    categories[categoryIndex].items = categories[categoryIndex].items.filter(i => i.name !== item.name);
+    localStorage.setItem('categories', JSON.stringify(categories));
+    loadMenu();
+};
+
+document.getElementById('reports').addEventListener('click', () => {
+    mainPage.style.display = 'none';
+    reportsPage.style.display = 'block';
+
+    let dailyIncome = 0;
+    let dailyOrders = 0;
+    let monthlyIncome = 0;
+
+    elements.forEach(element => {
+        const orders = JSON.parse(localStorage.getItem(element.id) || '[]');
+        orders.forEach(order => {
+            dailyIncome += order.price * order.count;
+            dailyOrders += order.count;
+        });
+    });
+
+    monthlyIncome = dailyIncome * 30;  // تقدير الدخل الشهري
+
+    dailyIncomeSpan.textContent = dailyIncome;
+    dailyOrdersSpan.textContent = dailyOrders;
+    monthlyIncomeSpan.textContent = monthlyIncome;
+});
+
+loadOrders();
+loadMenu();
+});
+
+
+
+
+
+
+ </script>
+</body>
+</html>
+ 
