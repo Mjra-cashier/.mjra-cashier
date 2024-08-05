@@ -192,6 +192,39 @@ font-family: "Rubik", sans-serif;
 
 
     
+        /* تحسين شكل القائمة المنسدلة */
+.styled-select {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    background: #e0f7ff; /* لون أزرق فاتح */
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    appearance: none; /* إزالة السهم الافتراضي */
+    -webkit-appearance: none; /* إزالة السهم الافتراضي لمتصفحات WebKit */
+    -moz-appearance: none; /* إزالة السهم الافتراضي لمتصفحات Firefox */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* السهم باللون الأسود */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
+
+.styled-select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
+}
+
+/* تحسين شكل خيارات القائمة المنسدلة */
+.styled-select option {
+    background: #cceeff; /* لون أزرق فاتح */
+    color: #333;
+    padding: 10px;
+}
+
 
 
 
