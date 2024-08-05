@@ -230,7 +230,16 @@ font-family: "Rubik", sans-serif;
 
         
 
-
+.timer {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #555;
+    background-color: #e0e0e0;
+    padding: 3px 6px;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
 
 
 
@@ -406,36 +415,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+<script>
 
+document.addEventListener('DOMContentLoaded', () => {
+    const addOrderButton = document.getElementById('addOrder');
+    const clearOrdersButton = document.getElementById('clearOrders');
+    const elements = document.querySelectorAll('.table, .pool');
+    let timers = {}; // لتخزين مؤقتات الطاولات
 
+‎    // دالة لتشغيل المؤقت
+    function startTimer(elementId) {
+        if (timers[elementId]) return; // إذا كان المؤقت بالفعل قيد التشغيل
 
+        const timerElement = document.getElementById(`timer-${elementId}`);
+        let [hours, minutes, seconds] = [0, 0, 0];
+        const updateInterval = 1000; // تحديث كل ثانية
 
+        timers[elementId] = setInterval(() => {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+            if (minutes >= 60) {
+                minutes = 0;
+                hours++;
+            }
+            timerElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }, updateInterval);
+    }
 
+‎    // دالة لإيقاف المؤقت
+    function stopTimer() {
+        for (let timer in timers) {
+            clearInterval(timers[timer]);
+        }
+        timers = {}; // مسح جميع المؤقتات
+        document.querySelectorAll('.timer').forEach(timerElement => {
+            timerElement.textContent = '0:00:00';
+        });
+    }
+
+‎    // حدث النقر على زر إضافة طلب
+    addOrderButton.addEventListener('click', () => {
+        const currentId = [...elements].find(element => element.classList.contains('active'))?.id;
+        if (currentId) {
+            startTimer(currentId); // بدء المؤقت للطاولة النشطة
+        }
+    });
+
+‎    // حدث النقر على زر تم الدفع
+    clearOrdersButton.addEventListener('click', () => {
+        stopTimer(); // إيقاف جميع المؤقتات
+    });
+
+‎    // تعيين الطاولة النشطة عند النقر عليها
+    elements.forEach(element => {
+        element.addEventListener('click', () => {
+            elements.forEach(el => el.classList.remove('active')); // إزالة النشطة من جميع العناصر
+            element.classList.add('active'); // تعيين النشطة للطاولة أو البلي المحددة
+        });
+    });
+});
+</script>
 
 
 
     
+
+
+
+
+
+<div class="container" id="mainPage">
+    <div class="table" id="table1">1<span class="total" id="total-table1"></span><span class="timer" id="timer-table1">0:00:00</span></div>
+    <div class="table" id="table2">2<span class="total" id="total-table2"></span><span class="timer" id="timer-table2">0:00:00</span></div>
+    <div class="table" id="table3">3<span class="total" id="total-table3"></span><span class="timer" id="timer-table3">0:00:00</span></div>
+    <div class="table" id="table4">4<span class="total" id="total-table4"></span><span class="timer" id="timer-table4">0:00:00</span></div>
+    <div class="table" id="table5">5<span class="total" id="total-table5"></span><span class="timer" id="timer-table5">0:00:00</span></div>
+    <div class="table" id="table6">6<span class="total" id="total-table6"></span><span class="timer" id="timer-table6">0:00:00</span></div>
+    <div class="table" id="table7">7<span class="total" id="total-table7"></span><span class="timer" id="timer-table7">0:00:00</span></div>
+    <div class="table" id="table8">8<span class="total" id="total-table8"></span><span class="timer" id="timer-table8">0:00:00</span></div>
+    <div class="table" id="table9">9<span class="total" id="total-table9"></span><span class="timer" id="timer-table9">0:00:00</span></div>
+    <div class="table" id="table10">10<span class="total" id="total-table10"></span><span class="timer" id="timer-table10">0:00:00</span></div>
+    <div class="table" id="table11">11<span class="total" id="total-table11"></span><span class="timer" id="timer-table11">0:00:00</span></div>
+    <div class="table" id="table12">12<span class="total" id="total-table12"></span><span class="timer" id="timer-table12">0:00:00</span></div>
+    <div class="table" id="table13">13<span class="total" id="total-table13"></span><span class="timer" id="timer-table13">0:00:00</span></div>
+    <div class="table" id="table14">14<span class="total" id="total-table14"></span><span class="timer" id="timer-table14">0:00:00</span></div>
+    <div class="pool" id="pool1">بليارد<span class="total" id="total-pool1"></span><span class="timer" id="timer-pool1">0:00:00</span></div>
+    <div class="pool" id="pool2">1بلي<span class="total" id="total-pool2"></span><span class="timer" id="timer-pool2">0:00:00</span></div>
+    <div class="pool" id="pool3">2بلي<span class="total" id="total-pool3"></span><span class="timer" id="timer-pool3">0:00:00</span></div>
+    <div class="pool" id="pool4">3بلي<span class="total" id="total-pool4"></span><span class="timer" id="timer-pool4">0:00:00</span></div>
+
+
     
-    <div class="container" id="mainPage">
-        <div class="table" id="table1">1<span class="total" id="total-table1"></span></div>
-        <div class="table" id="table2">2<span class="total" id="total-table2"></span></div>
-        <div class="table" id="table3">3<span class="total" id="total-table3"></span></div>
-        <div class="table" id="table4">4<span class="total" id="total-table4"></span></div>
-        <div class="table" id="table5">5<span class="total" id="total-table5"></span></div>
-        <div class="table" id="table6">6<span class="total" id="total-table6"></span></div>
-        <div class="table" id="table7">7<span class="total" id="total-table7"></span></div>
-        <div class="table" id="table8">8<span class="total" id="total-table8"></span></div>
-        <div class="table" id="table9">9<span class="total" id="total-table9"></span></div>
-        <div class="table" id="table10">10<span class="total" id="total-table10"></span></div>
-        <div class="table" id="table11">11<span class="total" id="total-table11"></span></div>
-        <div class="table" id="table12">12<span class="total" id="total-table12"></span></div>
-        <div class="table" id="table13">13<span class="total" id="total-table13"></span></div>
-        <div class="table" id="table14">14<span class="total" id="total-table14"></span></div>
-        <div class="pool" id="pool1">بليارد<span class="total" id="total-pool1"></span></div>
-        <div class="pool" id="pool2">1بلي<span class="total" id="total-pool2"></span></div>
-        <div class="pool" id="pool3">2بلي<span class="total" id="total-pool3"></span></div>
-        <div class="pool" id="pool4">3بلي<span class="total" id="total-pool4"></span></div>
-        
+    
+  
         
            <button id="logoutButton">تسجيل الخروج</button>
         
