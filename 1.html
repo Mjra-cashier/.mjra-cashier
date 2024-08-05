@@ -257,29 +257,29 @@ font-family: "Rubik", sans-serif;
 
 
 
-
-
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const moveOrdersButton = document.getElementById('moveOrders');
     const tableSelect = document.getElementById('tableSelect');
     const elements = document.querySelectorAll('.table, .pool');
-    let currentId = null; // سيتم تعيين هذه القيمة بشكل صحيح لاحقًا
+    let currentId = null;
 
-    // تحميل الطاولات والبلياردو في القائمة المنسدلة
+    // تحميل الطاولات والبليارد والبلي في القائمة المنسدلة
     const loadTableOptions = () => {
         tableSelect.innerHTML = ''; // تنظيف الخيارات الحالية
 
         elements.forEach(element => {
             const option = document.createElement('option');
             option.value = element.id;
-            option.textContent = element.textContent;
+            let displayText;
+
+            if (element.classList.contains('table')) {
+                displayText = element.id.replace('table', ''); // استخراج رقم الطاولة
+            } else if (element.classList.contains('pool')) {
+                const poolNumber = element.id.replace('pool', '');
+                displayText = poolNumber === '1' ? 'بليارد' : `بلي ${poolNumber - 1}`;
+            }
+
+            option.textContent = displayText;
             tableSelect.appendChild(option);
         });
 
@@ -322,18 +322,20 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.forEach(element => {
         element.addEventListener('click', () => {
             currentId = element.id;
-       
-
-
-
-
-
-
-
-
         });
     });
 });
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 
