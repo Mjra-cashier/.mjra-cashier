@@ -373,7 +373,35 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
+<script>
 
+document.addEventListener('DOMContentLoaded', () => {
+    const elements = document.querySelectorAll('.table, .pool');
+    let currentId = null;
+    const tableNumberElement = document.getElementById('tableNumber');
+
+    // تعيين الطاولة الحالية عند النقر عليها
+    elements.forEach(element => {
+        element.addEventListener('click', () => {
+            currentId = element.id;
+
+            // تحديث رقم الطاولة في قسم التفاصيل
+            if (element.classList.contains('table')) {
+                tableNumberElement.textContent = `رقم الطاولة: ${element.id.replace('table', '')}`;
+            } else if (element.classList.contains('pool')) {
+                const poolNumber = parseInt(element.id.replace('pool', ''), 10);
+                // عرض بليارد إذا كان الرقم 1، و بلي مع الرقم المناسب للبقية
+                const displayText = poolNumber === 1 ? 'بليارد' : `بلي ${poolNumber - 1}`;
+                tableNumberElement.textContent = `رقم الطاولة: ${displayText}`;
+            }
+
+            // عرض قسم التفاصيل
+            document.getElementById('detailsPage').style.display = 'block';
+        });
+    });
+});
+
+</script>
 
 
 
@@ -413,14 +441,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
         
+     </div>
+<div class="details-container" id="detailsPage" style="display:none;">
+    <h2>تفاصيل الطلبات</h2>
+    <h3 id="tableNumber">رقم الطاولة: </h3> <!-- رقم الطاولة سيتم إدراجه هنا -->
+    <div id="details">
+        <!-- تفاصيل الطلبات سيتم إدراجها هنا -->
     </div>
-
-    <div class="details-container" id="detailsPage" style="display:none;">
-        <h2>تفاصيل الطلبات</h2>
-        <div id="details">
-‎            <!-- تفاصيل الطلبات سيتم إدراجها هنا -->
-        
-        </div>
         <h3>المجموع: <span id="totalAmount">0</span> دينار عراقي</h3>
         <button id="addOrder">إضافة طلب</button>
         <button id="clearOrders">تم الدفع</button>
