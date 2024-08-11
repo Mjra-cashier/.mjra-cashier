@@ -80,14 +80,15 @@
 
 
         .footer {
-        position: fixed; /* يبقي الحقوق ثابتة في الأسفل حتى عند التمرير */
-        bottom: 10px; /* مسافة صغيرة من الأسفل */
+        position: fixed; /* يبقي الحقوق ثابتة في مكانها */
+        top: 10px; /* يضع الحاوية في أعلى الصفحة */
         left: 50%; /* يضع الحاوية في منتصف الشاشة أفقياً */
         transform: translateX(-50%); /* يحول الحاوية إلى المنتصف تماماً */
         color: #fff;
         font-size: 14px;
         font-family: 'Lalezar', sans-serif; /* استخدام خط مختلف */
         text-align: center;
+        z-index: 1000; /* يضمن ظهور الحقوق فوق المحتوى الآخر */
     }
 
     .footer img {
