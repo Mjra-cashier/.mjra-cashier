@@ -643,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <!-- تفاصيل الطلبات سيتم إدراجها هنا -->
     </div>
         
-        <button id="addOrder">إضافة طلب</button>
+       
         <button id="clearOrders">تم الدفع</button>
 
 
@@ -881,10 +881,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    document.getElementById('addOrder').addEventListener('click', () => {
-        detailsPage.style.display = 'none';
-        menuPage.style.display = 'block';
-    });
+    
 
     clearOrdersButton.addEventListener('click', () => {
         localStorage.removeItem(currentId);
