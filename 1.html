@@ -328,6 +328,43 @@ font-family: "Rubik", sans-serif;
 
 
 
+
+
+      .button-con-back {
+        display: flex;
+        flex-direction: column; /* يجعل الأزرار تظهر عمودياً */
+        align-items: flex-end; /* يجعل الأزرار تتراصف عند اليمين */
+        gap: 10px; /* مسافة بين الأزرار */
+        position: fixed; /* يجعل الأزرار في مكان ثابت عند التمرير */
+        right: 20px; /* مسافة من اليمين */
+        top: 20px; /* مسافة من الأعلى */
+        width: 200px; /* عرض ثابت للأزرار */
+    }
+
+    .button-con-back button {
+        font-size: 1.5em; /* تكبير النص داخل الأزرار */
+        padding: 15px; /* زيادة حجم الزر عن طريق زيادة الحشوة */
+        width: 50%; /* يجعل الزر يمتد ليملأ عرض الحاوية */
+        background-color: #f44336; /* لون خلفية الزر (أحمر) */
+        color: white; /* لون النص (أبيض) */
+        border: none; /* إزالة الحواف */
+        border-radius: 5px; /* حواف دائرية للزر */
+        cursor: pointer; /* تغيير المؤشر عند التمرير فوق الزر */
+    }
+
+    .button-con-back button:hover {
+        background-color: #d32f2f; /* لون مختلف عند تمرير الفأرة فوق الزر */
+    }
+
+
+
+
+
+
+
+
+        
+
         
         
         
@@ -643,6 +680,16 @@ document.addEventListener('DOMContentLoaded', () => {
    </div>
 <div class="details-container" id="detailsPage" style="display:none;">
 
+
+
+ <div class="button-con-back">
+    <button id="back">رجوع</button>
+</div>
+
+
+
+
+    
     
 ‏ <div class="center-container">
 ‏    <h3 class="totalAmount">المجموع: <span id="totalAmount">0</span> دينار عراقي</h3>
@@ -654,7 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <h3 id="tableNumber">رقم الطاولة: </h3> <!-- رقم الطاولة سيتم إدراجه هنا -->
 
 <div class="button-container">
-    <button id="back">رجوع</button>
+  
     <button id="clearOrders">تم الدفع</button>
     <button id="moveOrders">نقل الطلبات</button>
 </div>
