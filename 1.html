@@ -384,6 +384,20 @@ font-family: "Rubik", sans-serif;
 
 
 
+   .table-number-container {
+        position: relative; /* يسمح للمربع بالتحرك مع الصفحة */
+        background-color: orange; /* لون خلفية واضح */
+        padding: 5px 10px; /* بعض التباعد الداخلي */
+        border-radius: 8px; /* زوايا دائرية للمربع */
+        color: #333; /* لون النص */
+        font-family: 'Cairo Play', sans-serif; /* خط النص */
+        font-size: 18px; /* حجم النص */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* إضافة ظل لإبراز المربع */
+        text-align: center; /* يجعل النص في المنتصف داخل المربع */
+        margin: 20px auto; /* تباعد من الأعلى والجانبين */
+        width: fit-content; /* يجعل المربع بحجم النص ومحتوياته */
+    }
+
 
 
 
@@ -729,12 +743,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+<div class="table-number-container">
+    <h3 id="tableNumber">رقم الطاولة: 5</h3> <!-- قم بتحديث رقم الطاولة هنا -->
+</div>
+    
+
+
+
 
     
 ‏ <div class="center-container">
 ‏    <h3 class="totalAmount">المجموع: <span id="totalAmount">0
 
- <id="tableNumber">رقم الطاولة:
+
 
 
 
