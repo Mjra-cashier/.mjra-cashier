@@ -462,13 +462,42 @@ document.addEventListener('DOMContentLoaded', () => {
         var clearOrdersButton = document.getElementById('clearOrders');
         var elements = document.querySelectorAll('.table, .pool');
         var timers = {}; // لتخزين مؤقتات الطاولات
+        var timeData = {}; // لتخزين بيانات الوقت
+
+        // استرجاع حالة المؤقتات من localStorage
+        function loadTimers() {
+            var storedTimers = JSON.parse(localStorage.getItem('timers')) || {};
+            for (var id in storedTimers) {
+                if (storedTimers.hasOwnProperty(id)) {
+                    var timerData = storedTimers[id];
+                    startTimer(id, timerData.hours, timerData.minutes, timerData.seconds);
+                }
+            }
+        }
+
+        // حفظ حالة المؤقتات في localStorage
+        function saveTimers() {
+            var timerData = {};
+            for (var id in timers) {
+                if (timers.hasOwnProperty(id)) {
+                    var timerElement = document.getElementById('timer-' + id);
+                    var timeParts = timerElement.textContent.split(':');
+                    timerData[id] = {
+                        hours: parseInt(timeParts[0], 10),
+                        minutes: parseInt(timeParts[1], 10),
+                        seconds: parseInt(timeParts[2], 10)
+                    };
+                }
+            }
+            localStorage.setItem('timers', JSON.stringify(timerData));
+        }
 
         // دالة لتشغيل المؤقت
-        function startTimer(elementId) {
+        function startTimer(elementId, startHours = 0, startMinutes = 0, startSeconds = 0) {
             if (timers[elementId]) return; // إذا كان المؤقت بالفعل قيد التشغيل
 
             var timerElement = document.getElementById('timer-' + elementId);
-            var hours = 0, minutes = 0, seconds = 0;
+            var hours = startHours, minutes = startMinutes, seconds = startSeconds;
             var updateInterval = 1000; // تحديث كل ثانية
 
             timers[elementId] = setInterval(function() {
@@ -493,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (timers[elementId]) {
                 clearInterval(timers[elementId]);
                 delete timers[elementId]; // مسح المؤقت
-                document.getElementById('timer-' + elementId).textContent = '00:00:00'; // تصحيح عرض الوقت
+                saveTimers(); // حفظ حالة المؤقتات عند إيقافها
             }
         }
 
@@ -526,8 +555,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.classList.add('active'); // تعيين النشطة للطاولة أو البلي المحددة
             });
         }
+
+        // استرجاع حالة المؤقتات عند تحميل الصفحة
+        loadTimers();
+
+        // حفظ حالة المؤقتات عند مغادرة الصفحة
+        window.addEventListener('beforeunload', saveTimers);
     });
-    </script>
+</script>
 
 
 
