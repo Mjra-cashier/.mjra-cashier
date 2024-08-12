@@ -971,10 +971,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-  <script>
+   <script>
         function downloadBackup() {
-            const data = localStorage.getItem('backupData') || '{}'; // الحصول على البيانات من التخزين المؤقت
-            const blob = new Blob([data], { type: 'application/json' });
+            const backupData = {};
+
+            // الحصول على جميع المفاتيح والقيم من localStorage
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                backupData[key] = localStorage.getItem(key);
+            }
+
+            // تحويل البيانات إلى ملف JSON وتنزيله
+            const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -988,8 +996,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    const data = e.target.result;
-                    localStorage.setItem('backupData', data); // تخزين البيانات في التخزين المؤقت
+                    const data = JSON.parse(e.target.result);
+
+                    // استعادة جميع البيانات إلى localStorage
+                    for (const key in data) {
+                        if (data.hasOwnProperty(key)) {
+                            localStorage.setItem(key, data[key]);
+                        }
+                    }
+
                     alert('تم رفع النسخة الاحتياطية بنجاح!');
                 };
                 reader.readAsText(file);
