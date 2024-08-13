@@ -490,6 +490,141 @@ font-family: "Rubik", sans-serif;
 
 
 
+
+        ‎/* تنسيق عنوان القسم */
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #white;
+}
+
+‎/* تنسيق أزرار الفئات */
+.category-buttons {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.category-buttons button {
+    background-color: #f0c040;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.category-buttons button:hover {
+    background-color: #e0b030;
+}
+
+.category-buttons button.active {
+    background-color: #d0a020;
+    color: white;
+    transform: scale(1.05);
+}
+
+‎/* تنسيق قائمة المنيو */
+#menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+    padding: 10px;
+}
+
+.section h3 {
+    font-size: 1.5rem;
+    color: #white;
+    margin-bottom: 10px;
+}
+
+‎/* تنسيق عناصر المنيو */
+.menu-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.menu-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.menu-item span {
+    margin-right: 10px;
+}
+
+.menu-item .edit-menu-item,
+.menu-item .delete-menu-item {
+    background-color: #f0c040;
+    border: none;
+    color: #333;
+    padding: 5px 10px;
+    margin-left: 5px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.menu-item .edit-menu-item:hover,
+.menu-item .delete-menu-item:hover {
+    background-color: #e0b030;
+}
+
+‎/* تنسيق قسم إضافة قسم جديد */
+h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 30px;
+    color: #white;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 300px;
+    margin-right: 10px;
+}
+
+button#addCategory,
+button#backFromMenu {
+    background-color: #f0c040;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button#addCategory:hover,
+button#backFromMenu:hover {
+    background-color: #e0b030;
+}
+
+
+
+
         
 
         
