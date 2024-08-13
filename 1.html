@@ -1186,6 +1186,111 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    const categoryButtonsContainer = document.getElementById('categoryButtons');
+    const menuContainer = document.getElementById('menu');
+    const categoryNameInput = document.getElementById('categoryName');
+    const addCategoryButton = document.getElementById('addCategory');
+    const sections = JSON.parse(localStorage.getItem('sections')) || {};
+
+    let lastSelectedCategory = null; // متغير لتتبع القسم الذي تم اختياره آخر مرة
+
+    function renderCategories() {
+        categoryButtonsContainer.innerHTML = '';
+        Object.keys(sections).forEach(category => {
+            const button = document.createElement('button');
+            button.textContent = category;
+            button.addEventListener('click', () => toggleCategory(category));
+            categoryButtonsContainer.appendChild(button);
+        });
+        addDefaultCategoryButtons();
+    }
+
+    function renderMenu() {
+        menuContainer.innerHTML = '';
+        Object.keys(sections).forEach(category => {
+            const section = sections[category];
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'section';
+            sectionDiv.style.display = 'none'; // إخفاء جميع الأقسام بشكل افتراضي
+            const header = document.createElement('h3');
+            header.textContent = category;
+            sectionDiv.appendChild(header);
+            section.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'menu-item';
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <span>${item.name}</span>
+                    <span>${item.price}</span>
+                    <button class="edit-menu-item">تعديل</button>
+                    <button class="delete-menu-item">حذف</button>
+                `;
+                sectionDiv.appendChild(itemDiv);
+            });
+            menuContainer.appendChild(sectionDiv);
+        });
+    }
+
+    function addDefaultCategoryButtons() {
+        const defaultCategories = ['اراكيل', 'مشروبات باردة', 'مشروبات حارة', 'مأكولات', 'العاب'];
+        defaultCategories.forEach(category => {
+            if (!sections[category]) {
+                sections[category] = [];
+            }
+        });
+        saveSections();
+        renderCategories();
+        renderMenu();
+    }
+
+    function toggleCategory(category) {
+        const sections = menuContainer.querySelectorAll('.section');
+
+        // إذا تم اختيار نفس القسم مرة أخرى
+        if (lastSelectedCategory === category) {
+            sections.forEach(section => {
+                section.style.display = 'block'; // إظهار جميع الأقسام
+            });
+            lastSelectedCategory = null; // إعادة تعيين آخر قسم تم اختياره
+        } else {
+            sections.forEach(section => {
+                const sectionTitle = section.querySelector('h3').textContent;
+                section.style.display = sectionTitle === category ? 'block' : 'none';
+            });
+            lastSelectedCategory = category; // تحديث آخر قسم تم اختياره
+        }
+    }
+
+    function saveSections() {
+        localStorage.setItem('sections', JSON.stringify(sections));
+    }
+
+    addCategoryButton.addEventListener('click', () => {
+        const categoryName = categoryNameInput.value.trim();
+        if (categoryName && !sections[categoryName]) {
+            sections[categoryName] = [];
+            saveSections();
+            renderCategories();
+            renderMenu();
+        }
+        categoryNameInput.value = '';
+    });
+
+    renderCategories();
+    renderMenu();
+});
+
+
+        
+    </script>
+
+
+
+
+
    <script>
         function downloadBackup() {
             const backupData = {};
