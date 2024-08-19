@@ -209,57 +209,44 @@ input[type="file"] {
 
 
     
-        /* تحسين شكل القائمة المنسدلة */
+   /* تصميم القائمة المنسدلة */
 .styled-select {
-
     display: flex;
-            justify-content: center;
-            align-items: center;
-            /*height: 5vh; لتوسيط العنصر عمودياً */
-            margin: 0;
-
-
-
-    
+    justify-content: flex-end; /* محاذاة القائمة لليمين */
+    align-items: center;
     width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 10px;
+    max-width: 100px; /* يمكنك تعديل العرض حسب الحاجة */
+    padding: 8px; /* حشو القائمة */
     background: #e0f7ff; /* لون أزرق فاتح */
     color: #333;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px; /* حجم الخط داخل القائمة */
     appearance: none; /* إزالة السهم الافتراضي */
     -webkit-appearance: none; /* إزالة السهم الافتراضي لمتصفحات WebKit */
     -moz-appearance: none; /* إزالة السهم الافتراضي لمتصفحات Firefox */
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* السهم باللون الأسود */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23000" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* السهم باللون الأسود */
     background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 20px;
+    background-position: right 8px center;
+    background-size: 16px;
+    position: absolute; /* اجعل العنصر مطلق للتأكد من بقاءه في اليمين */
+    right: 0; /* اجعله على الحافة اليمنى */
+    margin-top: 100px; /* المسافة من الأعلى */
 }
 
 .styled-select:focus {
-
-
-   
-
-
-
-    
     outline: none;
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-    border: 1px solid rgba(81, 203, 238, 1);
+    box-shadow: 0 0 3px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 200, 1);
 }
 
 /* تحسين شكل خيارات القائمة المنسدلة */
 .styled-select option {
     background: #cceeff; /* لون أزرق فاتح */
     color: #333;
-    padding: 10px;
+    padding: 6px; /* تقليل الحشو حول النصوص */
+    font-size: 12px; /* تصغير حجم الخط داخل الخيارات */
 }
-
-
 
 
         
@@ -1229,6 +1216,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
     <button id="clearOrders">تم الدفع</button>
     <button id="moveOrders">نقل الطلبات</button>
+
+   <select id="tableSelect" class="styled-select">
+‎        <!-- سيتم ملء القائمة بالطاولات بواسطة JavaScript -->
+    </select>
+    
 </div>
 
 
@@ -1261,12 +1253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
 
-<div id="tableSelectContainer">
-    <select id="tableSelect" class="styled-select">
-‎        <!-- سيتم ملء القائمة بالطاولات بواسطة JavaScript -->
-    </select>
 
-</div>
 
 
          
