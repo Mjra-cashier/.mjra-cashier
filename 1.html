@@ -838,6 +838,66 @@ button {
 }
 
 
+
+.additem1 {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #2e2e2e; /* خلفية داكنة للحاوية */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* ظل خفيف للحاوية */
+}
+
+h5 {
+    margin-bottom: 10px;
+    color: #f0f0f0; /* لون النص العناوين */
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #3e3e3e; /* خلفية داكنة للحقول */
+    color: #ffffff; /* لون النص في الحقول */
+    border: 1px solid #555; /* حواف داكنة */
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4a4a4a; /* لون الخلفية للأزرار */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #6a6a6a; /* تغيير لون الزر عند التمرير */
+}
+
+button:focus {
+    outline: none; /* إزالة إطار التركيز الافتراضي */
+}
+
+‎/* إزالة زر الرجوع */
+#backFromMenu {
+    display: none; /* إخفاء زر الرجوع */
+}
+
+
+
+
+      
+
+
     </style>
 
 
@@ -1225,20 +1285,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-           <h3>إضافة منتج جديد</h3>
-    <input type="text" id="itemName" placeholder="اسم المنتج">
-    <input type="number" id="itemPrice" placeholder="سعر المنتج">
-    <input type="text" id="itemImage" placeholder="رابط الصورة">
-    <select id="itemCategory">
-        <option value="">اختر القسم</option>
-    </select>
-    <button id="addItem">إضافة منتج</button>
-
-    <h3>إضافة قسم جديد</h3>
-    <input type="text" id="categoryName" placeholder="اسم القسم">
-    <button id="addCategory">إضافة قسم</button>
-    <button id="backFromMenu">رجوع</button>
-</div>
+         
 
 
 
@@ -1257,6 +1304,21 @@ document.addEventListener('DOMContentLoaded', () => {
         <button id="backFromReports">رجوع</button>
     </div>
 
+  <div class="additem1">
+    <h5>إضافة منتج جديد</h5>
+    <input type="text" id="itemName" placeholder="اسم المنتج">
+    <input type="number" id="itemPrice" placeholder="سعر المنتج">
+    <input type="text" id="itemImage" placeholder="رابط الصورة">
+    <select id="itemCategory">
+        <option value="">اختر القسم</option>
+    </select>
+    <button id="addItem">إضافة منتج</button>
+
+    <h5>إضافة قسم جديد</h5>
+    <input type="text" id="categoryName" placeholder="اسم القسم">
+    <button id="addCategory">إضافة قسم</button>
+    <button id="backFromMenu">رجوع</button>
+</div>
 
 
 
