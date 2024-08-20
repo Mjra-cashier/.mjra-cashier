@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
 
@@ -882,6 +882,42 @@ button:focus {
 
 
 
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.order-info {
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #555;
+    color: #fff;
+    width: 80px; /* حجم ثابت للمربعات */
+    text-align: center;
+    margin-right: 5px; /* فصل العناصر عن بعضها قليلاً */
+}
+
+.item-name, .item-count, .item-price {
+    flex-grow: 1; /* جعل جميع العناصر تأخذ نفس العرض */
+}
+
+.delete-btn {
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #d9534f;
+}
+
+.delete-btn i {
+    font-size: 14px; /* حجم أيقونة الحذف */
+}
+
+      
       
 
 
@@ -1587,29 +1623,34 @@ const loadMenu = () => {
     });
 
     const loadDetails = () => {
-        detailsContainer.innerHTML = '';
-        const orders = JSON.parse(localStorage.getItem(currentId) || '[]');
-        let totalAmount = 0;
-        orders.forEach((order, index) => {
-            const orderItem = document.createElement('div');
-            orderItem.className = 'order-item';
-            orderItem.innerHTML = `<span>${order.name} x${order.count}</span><span>${order.price * order.count} دينار</span><button data-index="${index}">حذف</button>`;
-            detailsContainer.appendChild(orderItem);
-            totalAmount += order.price * order.count;
-        });
-        totalAmountSpan.textContent = totalAmount;
+    detailsContainer.innerHTML = '';
+    const orders = JSON.parse(localStorage.getItem(currentId) || '[]');
+    let totalAmount = 0;
+    orders.forEach((order, index) => {
+        const orderItem = document.createElement('div');
+        orderItem.className = 'order-item';
+        orderItem.innerHTML = `
+            <span class="order-info item-name">${order.name}</span>
+            <span class="order-info item-count">${order.count}</span>
+            <span class="order-info item-price">${order.price * order.count} دينار</span>
+            <button data-index="${index}" class="delete-btn">
+                <i class="fas fa-trash"></i> <!-- أيقونة الحذف -->
+            </button>
+        `;
+        detailsContainer.appendChild(orderItem);
 
-        const deleteButtons = detailsContainer.querySelectorAll('button');
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const index = button.getAttribute('data-index');
-                orders.splice(index, 1);
-                localStorage.setItem(currentId, JSON.stringify(orders));
-                loadDetails();
-                loadOrders();
-            });
+        totalAmount += order.price * order.count;
+
+        // إضافة مستمع حدث لزر الحذف
+        const deleteBtn = orderItem.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', () => {
+            orders.splice(index, 1);  // حذف المنتج من المصفوفة
+            localStorage.setItem(currentId, JSON.stringify(orders));  // تحديث localStorage
+            loadDetails();  // إعادة تحميل التفاصيل
         });
-    };
+    });
+    totalAmountSpan.textContent = totalAmount;
+}
 
     
 
