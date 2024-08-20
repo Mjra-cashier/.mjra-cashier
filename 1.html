@@ -890,31 +890,46 @@ button:focus {
 }
 
 .order-info {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 5px;
-    border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #555;
-    color: #fff;
     width: 80px; /* حجم ثابت للمربعات */
+    height: 40px; /* ارتفاع ثابت للمربعات */
     text-align: center;
     margin-right: 5px; /* فصل العناصر عن بعضها قليلاً */
+    color: #fff; /* لون النص أبيض */
 }
 
-.item-name, .item-count, .item-price {
-    flex-grow: 1; /* جعل جميع العناصر تأخذ نفس العرض */
+.item-name {
+    background-color: #6C757D; /* لون رمادي مريح */
+}
+
+.item-count {
+    background-color: #28A745; /* لون أخضر مريح */
+}
+
+.item-price {
+    background-color: #007BFF; /* لون أزرق مريح */
 }
 
 .delete-btn {
-    padding: 5px;
-    background-color: transparent;
+    padding: 0;
+    background-color: #DC3545; /* لون أحمر مريح */
     border: none;
     cursor: pointer;
-    color: #d9534f;
+    height: 40px; /* نفس ارتفاع المربعات */
+    width: 40px; /* نفس عرض المربعات */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: #fff; /* لون النص أبيض */
 }
 
 .delete-btn i {
-    font-size: 14px; /* حجم أيقونة الحذف */
+    font-size: 16px; /* حجم أيقونة الحذف */
 }
 
       
